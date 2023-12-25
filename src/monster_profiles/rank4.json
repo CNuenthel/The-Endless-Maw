@@ -1,0 +1,52 @@
+{
+  "Black Pudding": {
+    "name": "Gravity Crush",
+    "text": "The Pudding engulfs you and crushes you in a dark abyss.",
+    "url": "https://angrygolem-games.com/wp-content/uploads/2020/12/black-pudding.jpg"
+  },
+  "Chuul": {
+    "name": "Wrap Maul",
+    "text": "The Chuul grapples you and voraciously tears away at your flesh with it's pincers.",
+    "url": "https://i1.wp.com/dmdave.com/wp-content/uploads/2018/11/chuul.jpg?fit=800%2C450&ssl=1"
+  },
+  "Couatl": {
+    "name": "Mind Spike",
+    "text": "You feel an erie interruption in your mind, right before the immense pain.",
+    "url": "https://i.pinimg.com/originals/18/7b/12/187b123b7b07899ae60238d637654f75.jpg"
+  },
+  "Ettin": {
+    "name": "Double Smash",
+    "text": "It wasn't the first club that got you. It was the second one.",
+    "url": "https://www.dndbeyond.com/avatars/thumbnails/0/341/1000/1000/636252776953634777.jpeg"
+  },
+  "Ghost": {
+    "name": "Haunt",
+    "text": "The Ghost slips from the physical plane with an ear-shattering shriek.",
+    "url": "https://www.dndbeyond.com/avatars/thumbnails/0/413/1000/1000/636252786639798307.jpeg"
+  },
+  "Lamia": {
+    "name": "Blur Strike",
+    "text": "Before you can mentally understand the creature before you, you feel a blade sink deep into your flesh.",
+    "url": "https://i.pinimg.com/originals/fb/81/ff/fb81ffb67ae50985df414277d58f8102.png"
+  },
+  "Red Dragon Wyrmling": {
+    "name": "Flame Jet",
+    "text": "The Wyrmling rears back and fires a jet of concentrated fire about you.",
+    "url": "https://i.pinimg.com/564x/d8/3b/c4/d83bc4b94a6ee53361e70230788e6145.jpg"
+  },
+  "Succubus": {
+    "name": "Enchantress",
+    "text": "You think it is a good idea to run your blade across your neck...",
+    "url": "https://static.wikia.nocookie.net/fenar/images/0/0d/Succubus.jpg/revision/latest/scale-to-width-down/570?cb=20200813133636"
+  },
+  "Wereboar": {
+    "name": "Infected Gore",
+    "text": "You blocked the hammer, but not the boar.",
+    "url": "https://www.dndbeyond.com/avatars/thumbnails/0/80/1000/1000/636252735506840152.jpeg"
+  },
+  "Weretiger": {
+    "name": "Flash Maul",
+    "text": "You are attacked in a blinding flash, you block the daggers, but not the teeth... or the claws.",
+    "url": "https://dmdave.com/wp-content/uploads/2019/01/weretiger-shawn-ye.jpg"
+  }
+}
