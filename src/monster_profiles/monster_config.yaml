@@ -47,6 +47,30 @@ Monster_Initiative:
   RANK9_INITIATIVE: 22
   RANK10_INITIATIVE: 24
 
+Monster_Crit:  # Calculated in items by 1 to n ratio
+  RANK1_CRIT: 10
+  RANK2_CRIT: 10
+  RANK3_CRIT: 10
+  RANK4_CRIT: 10
+  RANK5_CRIT: 9
+  RANK6_CRIT: 9
+  RANK7_CRIT: 9
+  RANK8_CRIT: 8
+  RANK9_CRIT: 8
+  RANK10_CRIT: 8
+
+Monster_Crit_Multiplier:
+  RANK1_CRIT_MULTI: 1.1
+  RANK2_CRIT_MULTI: 1.1
+  RANK3_CRIT_MULTI: 1.2
+  RANK4_CRIT_MULTI: 1.2
+  RANK5_CRIT_MULTI: 1.3
+  RANK6_CRIT_MULTI: 1.3
+  RANK7_CRIT_MULTI: 1.4
+  RANK8_CRIT_MULTI: 1.4
+  RANK9_CRIT_MULTI: 1.5
+  RANK10_CRIT_MULTI: 1.5
+
 Monster_Item_Drop_Chance:  # Calculated in items by 1 to n ratio
   RANK1_DROP_CHANCE: 4
   RANK2_DROP_CHANCE: 4
