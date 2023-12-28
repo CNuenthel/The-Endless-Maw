@@ -14,7 +14,9 @@ class Hero:
         self.current_hp = 50
         self.bonus_hp = 0
         self.atk = 15
+        self.bonus_atk = 0
         self.defense = 0
+        self.bonus_def = 0
         self.initiative = 1
         self.status = []
         self.crit_multiplier = 1.5

@@ -1,52 +1,81 @@
-
-# Apply buff/debuff to both parties
-# Apply damage of party 1 to party 2
-# If party 2 is still alive, apply damage of party 2 to party 1
-# Apply post fight changes
 from hero import Hero
-from monster import Monster
+from monster import MonsterBuilder
 import random
 
 
-class Battle:
-    def __init__(self, hero: Hero, monster: Monster):
+# TODO TEST ALL THIS
+
+class Fight:
+    def __init__(self, hero, monster):
+        self.first_attacker = None
         self.hero = hero
-        self.hero_damage = 0
         self.monster = monster
+
+        self.hero_attack = hero.atk + hero.bonus_atk
+        self.hero_damage = 0
+        self.hero_initiative = 0
+        self.hero_defense = hero.defense + hero.bonus_def
+        self.hero_flags = {"crit": False,
+                           "dmg_mitigated": False}
+
+        self.monster_attack = monster.atk
         self.monster_damage = 0
-        self.combat_order = []
-        self.hero_flags = {"crit": False}
-        self.monster_flags = {"crit": False}
+        self.monster_initiative = 0
+        self.monster_flags = {"crit": False,
+                              "dmg_mitigated": False}
+        self.monster_defense = monster.defense
 
     def roll_initiative(self):
-        monster_initiative = random.randint(1, self.monster.initiative)
-        hero_initiative = random.randint(1, self.hero.initiative)
+        self.hero_initiative = random.randint(self.hero.initiative // 2, self.hero.initiative)
+        self.monster_initiative = random.randint(self.monster_initiative // 2, self.monster.initiative)
 
-        if hero_initiative >= monster_initiative:
-            self.combat_order.extend([self.hero, self.monster])
-        else:
-            self.combat_order.extend([self.monster, self.hero])
-
-    def roll_crit(self):
-        if random.randint(1, self.monster.crit_chance) == 1:
-            self.monster_flags["crit"] = True
+    def roll_hero_damage(self):
         if random.randint(1, self.hero.crit_chance) == 1:
             self.hero_flags["crit"] = True
+            base_damage = random.randint(self.hero_attack // 2, self.hero_attack)
+            self.hero_damage = int(base_damage * (self.hero.crit_multiplier + self.hero.bonus_crit))
+        else:
+            self.hero_damage = random.randint(self.hero_attack // 2, self.hero_attack)
 
-    def roll_damage(self):
-        self.hero_damage = random.randint(self.hero.atk//2, self.hero.atk)
-        self.monster_damage = random.randint(self.monster.atk//2, self.monster.atk)
+    def roll_monster_damage(self):
+        if random.randint(1, self.monster.crit_chance) == 1:
+            self.monster_flags["crit"] = True
+            base_damage = random.randint(self.monster_attack // 2, self.monster_attack)
+            self.monster_damage = int(base_damage * self.monster.crit_multi)
+        else:
+            self.monster_damage = random.randint(self.monster_attack // 2, self.monster_attack)
 
-    def apply_hero_stat_changes(self):
-        if self.hero_flags["crit"]:
-            self.hero_damage = int(self.hero_damage * self.hero.crit_multiplier)
+    def set_attack_order(self):
+        if self.hero_initiative > self.monster_initiative:
+            self.first_attacker = "Hero"
+        else:
+            self.first_attacker = "Monster"
 
-    def apply_monster_stat_changes(self):
-        if self.monster_flags["crit"]:
-            self.monster_damage = int(self.monster_damage * self.monster.crit_multi)
+    def check_damage_mitigation(self):
+        if (self.hero_damage <= self.monster_defense or
+                self.first_attacker == "Monster" and self.monster_damage - self.hero_defense >= self.hero.current_hp or
+                self.hero_flags["dmg_mitigated"]):
+            self.hero_flags["dmg_mitigated"] = True
+            self.hero_damage = 0
+
+        if (self.monster_damage <= self.hero_defense or
+                self.first_attacker == "Hero" and self.hero_damage - self.monster_defense >= self.monster.current_hp or
+                self.monster.current_hp <= 0 or
+                self.monster_flags["dmg_mitigated"]):
+            self.monster_flags["dmg_mitigated"] = True
+            self.monster_damage = 0
 
     def apply_damage(self):
-        # TODO
-        """ Current problem, need to assign damage in the correct order and then reference the appropriate damage
-        I currently believe this can be done by mapping the hero damage to the hero object in the attack order, and the
-        monster damage to the monster object in the attack order."""
+        if not self.hero_flags["dmg_mitigated"]:
+            self.hero_damage -= self.monster_defense
+            self.monster.current_hp -= self.hero_damage
+            if self.monster.current_hp < 0:
+                self.monster.current_hp = 0
+        else:
+            print("hero_damage_mitigated")
+
+        if not self.monster_flags["dmg_mitigated"]:
+            self.monster_damage -= self.hero_defense
+            self.hero.current_hp -= self.monster_damage
+        else:
+            print("monster damage mitigated")
