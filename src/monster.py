@@ -2,7 +2,6 @@
 import random
 import json
 import yaml
-from typing import Union, Literal
 
 # Internal file imports
 import item

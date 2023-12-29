@@ -1,3 +1,4 @@
+import random
 
 class Hero:
     """
@@ -20,8 +21,9 @@ class Hero:
         self.initiative = 1
         self.status = []
         self.crit_multiplier = 1.5
+        self.bonus_crit_multiplier = 0
         self.crit_chance = 10
-        self.bonus_crit = 0
+        self.bonus_crit_chance = 0
         self.owner_id = player_id
         self.owner_name = player_name
         self.level = 1
@@ -32,3 +34,21 @@ class Hero:
         self.equipment = "None"
         self.armor = "None"
         self.gold = 0
+
+    def roll_initiative(self):
+        return random.randint(self.initiative//2, self.initiative)
+
+    def roll_damage(self) -> dict:
+        atk = self.atk + self.bonus_atk
+        damage = random.randint(atk // 2, atk)
+
+        if random.randint(1, self.crit_chance + self.bonus_crit_chance) == 1:
+            crit_multi = self.crit_chance + self.bonus_crit_chance
+            crit_damage = int(damage * crit_multi)
+            return {"crit": True, "dmg": crit_damage}
+
+        return {"crit": False, "dmg": damage}
+
+
+
+

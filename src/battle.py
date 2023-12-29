@@ -1,11 +1,9 @@
-from hero import Hero
-from monster import MonsterBuilder
 import random
 
 
 # TODO TEST ALL THIS
 
-class Fight:
+class Battle:
     def __init__(self, hero, monster):
         self.first_attacker = None
         self.hero = hero
@@ -26,25 +24,16 @@ class Fight:
         self.monster_defense = monster.defense
 
     def roll_initiative(self):
-        self.hero_initiative = random.randint(self.hero.initiative // 2, self.hero.initiative)
-        self.monster_initiative = random.randint(self.monster_initiative // 2, self.monster.initiative)
+        self.hero_initiative = self.hero.roll_initiative()
+        # TODO Add roll initiative to monster class
 
     def roll_hero_damage(self):
-        if random.randint(1, self.hero.crit_chance) == 1:
-            self.hero_flags["crit"] = True
-            base_damage = random.randint(self.hero_attack // 2, self.hero_attack)
-            self.hero_damage = int(base_damage * (self.hero.crit_multiplier + self.hero.bonus_crit))
-        else:
-            self.hero_damage = random.randint(self.hero_attack // 2, self.hero_attack)
+        self.hero_damage = self.hero.roll_damage()
 
     def roll_monster_damage(self):
-        if random.randint(1, self.monster.crit_chance) == 1:
-            self.monster_flags["crit"] = True
-            base_damage = random.randint(self.monster_attack // 2, self.monster_attack)
-            self.monster_damage = int(base_damage * self.monster.crit_multi)
-        else:
-            self.monster_damage = random.randint(self.monster_attack // 2, self.monster_attack)
-
+        pass
+        # TODO add roll damage to monster class
+    
     def set_attack_order(self):
         if self.hero_initiative > self.monster_initiative:
             self.first_attacker = "Hero"
@@ -52,14 +41,14 @@ class Fight:
             self.first_attacker = "Monster"
 
     def check_damage_mitigation(self):
-        if (self.hero_damage <= self.monster_defense or
+        if (self.hero_damage <= self.monster.defense or
                 self.first_attacker == "Monster" and self.monster_damage - self.hero_defense >= self.hero.current_hp or
                 self.hero_flags["dmg_mitigated"]):
             self.hero_flags["dmg_mitigated"] = True
             self.hero_damage = 0
 
         if (self.monster_damage <= self.hero_defense or
-                self.first_attacker == "Hero" and self.hero_damage - self.monster_defense >= self.monster.current_hp or
+                self.first_attacker == "Hero" and self.hero_damage - self.monster.defense >= self.monster.current_hp or
                 self.monster.current_hp <= 0 or
                 self.monster_flags["dmg_mitigated"]):
             self.monster_flags["dmg_mitigated"] = True
@@ -67,7 +56,7 @@ class Fight:
 
     def apply_damage(self):
         if not self.hero_flags["dmg_mitigated"]:
-            self.hero_damage -= self.monster_defense
+            self.hero_damage -= self.monster.defense
             self.monster.current_hp -= self.hero_damage
             if self.monster.current_hp < 0:
                 self.monster.current_hp = 0
