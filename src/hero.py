@@ -44,11 +44,18 @@ class Hero:
 
         if random.randint(1, self.crit_chance + self.bonus_crit_chance) == 1:
             crit_multi = self.crit_chance + self.bonus_crit_chance
-            crit_damage = int(damage * crit_multi)
-            return {"crit": True, "dmg": crit_damage}
+            damage = int(damage * crit_multi)
+            return {"crit": True, "dmg": damage}
 
         return {"crit": False, "dmg": damage}
 
+    def apply_damage(self, damage: int) -> dict:
+        total_defense = self.defense + self.bonus_def
+        net_damage = max(damage - total_defense, 0)
+        self.current_hp = max(self.current_hp - net_damage, 0)
 
+        if net_damage == 0:
+            return {"dmg_mitigated": True, "current_hp": self.current_hp}
+        return {"dmg_mitigated": False, "current_hp": self.current_hp}
 
 

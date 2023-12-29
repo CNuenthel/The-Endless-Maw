@@ -6,65 +6,70 @@ import random
 class Battle:
     def __init__(self, hero, monster):
         self.first_attacker = None
+
         self.hero = hero
         self.monster = monster
 
-        self.hero_attack = hero.atk + hero.bonus_atk
         self.hero_damage = 0
-        self.hero_initiative = 0
-        self.hero_defense = hero.defense + hero.bonus_def
         self.hero_flags = {"crit": False,
                            "dmg_mitigated": False}
 
-        self.monster_attack = monster.atk
         self.monster_damage = 0
-        self.monster_initiative = 0
         self.monster_flags = {"crit": False,
                               "dmg_mitigated": False}
-        self.monster_defense = monster.defense
-
-    def roll_initiative(self):
-        self.hero_initiative = self.hero.roll_initiative()
-        # TODO Add roll initiative to monster class
 
     def roll_hero_damage(self):
-        self.hero_damage = self.hero.roll_damage()
+        damage_roll = self.hero.roll_damage()
+        self.hero_flags["crit"] = damage_roll["crit"]
+        self.hero_damage = damage_roll["dmg"]
 
     def roll_monster_damage(self):
-        pass
-        # TODO add roll damage to monster class
+        damage_roll = self.monster.roll_damage()
+        self.monster_flags["crit"] = damage_roll["crit"]
+        self.monster_damage = damage_roll["dmg"]
     
     def set_attack_order(self):
-        if self.hero_initiative > self.monster_initiative:
-            self.first_attacker = "Hero"
+        if self.hero.roll_initiative() >= self.monster.roll_initiative():
+            self.first_attacker = "hero"
         else:
-            self.first_attacker = "Monster"
-
-    def check_damage_mitigation(self):
-        if (self.hero_damage <= self.monster.defense or
-                self.first_attacker == "Monster" and self.monster_damage - self.hero_defense >= self.hero.current_hp or
-                self.hero_flags["dmg_mitigated"]):
-            self.hero_flags["dmg_mitigated"] = True
-            self.hero_damage = 0
-
-        if (self.monster_damage <= self.hero_defense or
-                self.first_attacker == "Hero" and self.hero_damage - self.monster.defense >= self.monster.current_hp or
-                self.monster.current_hp <= 0 or
-                self.monster_flags["dmg_mitigated"]):
-            self.monster_flags["dmg_mitigated"] = True
-            self.monster_damage = 0
+            self.first_attacker = "monster"
 
     def apply_damage(self):
-        if not self.hero_flags["dmg_mitigated"]:
-            self.hero_damage -= self.monster.defense
-            self.monster.current_hp -= self.hero_damage
-            if self.monster.current_hp < 0:
-                self.monster.current_hp = 0
-        else:
-            print("hero_damage_mitigated")
+        if self.first_attacker == "hero":
 
-        if not self.monster_flags["dmg_mitigated"]:
-            self.monster_damage -= self.hero_defense
-            self.hero.current_hp -= self.monster_damage
+            mon_result = self.monster.apply_damage(self.hero_damage)
+            self.monster_flags["dmg_mitigated"] = mon_result["dmg_mitigated"]
+
+            if mon_result["current_hp"] == 0:
+                self.victory()
+                return
+
+            hero_result = self.hero.apply_damage(self.monster_damage)
+            self.hero_flags["dmg_mitigated"] = hero_result["dmg_mitigated"]
+
+            if hero_result["current_hp"] == 0:
+                self.defeat()
+                return  # Hero is dead
+
         else:
-            print("monster damage mitigated")
+            hero_result = self.hero.apply_damage(self.monster_damage)
+            self.hero_flags["dmg_mitigated"] = hero_result["dmg_mitigated"]
+
+            if hero_result["current_hp"] == 0:
+                self.defeat()
+                return
+
+            mon_result = self.monster.apply_damage(self.hero_damage)
+            self.monster_flags["dmg_mitigated"] = mon_result["dmg_mitigated"]
+
+            if mon_result["current_hp"] == 0:
+                self.victory()
+                return
+
+    def victory(self):
+        # Issue item/xp/gold to hero signalling death of monster
+        pass
+
+    def defeat(self):
+        # Advise hero is dead/incapacitated
+        pass

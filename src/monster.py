@@ -58,6 +58,26 @@ class Monster:
         self.item = itm
         self.xp = xp
 
+    def roll_initiative(self):
+        return random.randint(self.initiative//2, self.initiative)
+
+    def roll_damage(self):
+        damage = random.randint(self.atk//2, self.atk)
+
+        if random.randint(1, self.crit_chance) == 1:
+            damage = int(damage * self.crit_multi)
+            return {"crit": True, "dmg": damage}
+
+        return {"crit": False, "dmg": damage}
+
+    def apply_damage(self, damage: int) -> dict:
+        net_damage = max(damage - self.defense, 0)
+        self.current_hp = max(self.current_hp - net_damage, 0)
+
+        if net_damage == 0:
+            return {"dmg_mitigated": True, "current_hp": self.current_hp}
+        return {"dmg_mitigated": False, "current_hp": self.current_hp}
+
 
 class MonsterBuilder:
     """
