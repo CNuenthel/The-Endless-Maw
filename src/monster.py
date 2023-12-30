@@ -121,7 +121,6 @@ class MonsterBuilder:
         item_drop = mon_drop_chance[f"RANK{rank}_DROP_CHANCE"]
         max_xp = mon_xp[f"RANK{rank}_XP"]
 
-        print(f"Building {monster}")
         return Monster(
             name=monster,
             url=mon_data["url"],

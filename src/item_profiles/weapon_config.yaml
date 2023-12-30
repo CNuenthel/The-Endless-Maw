@@ -1,0 +1,35 @@
+Club:
+  max_bonus_atk: 15
+  min_bonus_atk: 2
+  bonus_def: 5
+
+Handaxe:
+  max_bonus_atk: 22
+  min_bonus_atk: 6
+  bonus_def: 2
+
+Spear:
+  max_bonus_atk: 18
+  min_bonus_atk: 10
+  bonus_def: 6
+
+Rapier:
+  max_bonus_atk: 30
+  min_bonus_atk: 8
+  bonus_def: 7
+
+Longsword:
+  max_bonus_atk: 28
+  min_bonus_atk: 20
+  bonus_def: 7
+
+Battleaxe:
+  max_bonus_atk: 42
+  min_bonus_atk: 20
+  bonus_def: 10
+
+Greatsword:
+  max_bonus_atk: 50
+  min_bonus_atk: 20
+  bonus_def: 10
+

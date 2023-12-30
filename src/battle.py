@@ -11,10 +11,12 @@ class Battle:
         self.monster = monster
 
         self.hero_damage = 0
+        self.hero_initiative = 0
         self.hero_flags = {"crit": False,
                            "dmg_mitigated": False}
 
         self.monster_damage = 0
+        self.monster_initiative = 0
         self.monster_flags = {"crit": False,
                               "dmg_mitigated": False}
 
@@ -27,9 +29,15 @@ class Battle:
         damage_roll = self.monster.roll_damage()
         self.monster_flags["crit"] = damage_roll["crit"]
         self.monster_damage = damage_roll["dmg"]
-    
+
+    def roll_hero_initiative(self):
+        self.hero_initiative = self.hero.roll_initiative()
+
+    def roll_monster_initiative(self):
+        self.monster_initiative = self.monster.roll_initiative()
+
     def set_attack_order(self):
-        if self.hero.roll_initiative() >= self.monster.roll_initiative():
+        if self.hero_initiative >= self.monster_initiative:
             self.first_attacker = "hero"
         else:
             self.first_attacker = "monster"
