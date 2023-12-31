@@ -1,48 +1,3 @@
-# Package imports
-import random
-import json
-import yaml
-
-# Internal file imports
-import item
-
-
-class Monster:
-    def __init__(self, name: str, url: str, sp_atk: str, max_hp: int, atk: int, defense: int, inish: int,
-                 crit_chance: int, crit_multi: float, itm: str, xp: int):
-        self.name = name
-        self.url = url
-        self.sp_atk = sp_atk
-        self.current_hp = max_hp
-        self.atk = atk
-        self.defense = defense
-        self.initiative = inish
-        self.crit_chance = crit_chance
-        self.crit_multi = crit_multi
-        self.item = itm
-        self.xp = xp
-
-    def roll_initiative(self):
-        return random.randint(self.initiative // 2, self.initiative)
-
-    def roll_damage(self):
-        damage = random.randint(self.atk // 2, self.atk)
-
-        if random.randint(1, self.crit_chance) == 1:
-            damage = int(damage * self.crit_multi)
-            return {"crit": True, "dmg": damage}
-
-        return {"crit": False, "dmg": damage}
-
-    def apply_damage(self, damage: int) -> dict:
-        net_damage = max(damage - self.defense, 0)
-        self.current_hp = max(self.current_hp - net_damage, 0)
-
-        if net_damage == 0:
-            return {"dmg_mitigated": True, "current_hp": self.current_hp}
-        return {"dmg_mitigated": False, "current_hp": self.current_hp}
-
-
 class MonsterBuilder:
     def __init__(self):
         self.item_generator = item.Items()
@@ -56,12 +11,8 @@ class MonsterBuilder:
         self.mon_crit = None
         self.mon_crit_multi = None
 
-        self._load_monster_configurations()
-        self._load_monster_profiles()
-
-    def _load_monster_configurations(self):
-        print("Loading monster configurations...")
-        with open("monster_profiles/monster_config.yaml", "r") as f:
+    def load_monster_configurations(self, file_path: str):
+        with open(file_path, "r") as f:
             monster_configs = yaml.safe_load(f)
 
         self.mon_dmg = monster_configs.get("Monster_Damage", {})
@@ -73,8 +24,7 @@ class MonsterBuilder:
         self.mon_crit = monster_configs.get("Monster_Crit", {})
         self.mon_crit_multi = monster_configs.get("Monster_Crit_Multiplier", {})
 
-    def _load_monster_profiles(self):
-        print("Loading monster profiles...")
+    def load_monster_profiles(self):
         for i in range(1, 11):
             with open(f"monster_profiles/rank{i}.json", "r") as f:
                 self.monster_ranks[i] = json.load(f)

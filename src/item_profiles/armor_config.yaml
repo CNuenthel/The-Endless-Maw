@@ -1,51 +1,60 @@
-RANK1:
-  Padded Armor:
-    bonus_defense: 5
-    bonus_hp: 20
 
-  Leather Armor:
-    bonus_defense: 10
-    bonus_hp: 40
+Padded Armor:
+  rank: 1
+  bonus_defense: 5
+  bonus_hp: 20
 
-  Studded Leather Armor:
-    bonus_defense: 15
-    bonus_hp: 70
+Leather Armor:
+  rank: 1
+  bonus_defense: 10
+  bonus_hp: 40
 
-RANK2:
-  Hide Armor:
-    bonus_defense: 20
-    bonus_hp: 100
+Studded Leather Armor:
+  rank: 1
+  bonus_defense: 15
+  bonus_hp: 70
 
-  Chain Shirt:
-    bonus_defense: 25
-    bonus_hp: 130
+Hide Armor:
+  rank: 2
+  bonus_defense: 20
+  bonus_hp: 100
 
-  Scale Mail:
-    bonus_defense: 30
-    bonus_hp: 160
+Chain Shirt:
+  rank: 2
+  bonus_defense: 25
+  bonus_hp: 130
 
-RANK3:
-  Breastplate:
-    bonus_defense: 35
-    bonus_hp: 190
+Scale Mail:
+  rank: 2
+  bonus_defense: 30
+  bonus_hp: 160
 
-  Halfplate Armor:
-    bonus_defense: 40
-    bonus_hp: 220
+Breastplate:
+  rank: 3
+  bonus_defense: 35
+  bonus_hp: 190
 
-  Ring Mail:
-    bonus_defense: 45
-    bonus_hp: 250
+Halfplate Armor:
+  rank: 3
+  bonus_defense: 40
+  bonus_hp: 220
 
-  Chain Mail:
-    bonus_defense: 50
-    bonus_hp: 280
+Ring Mail:
+  rank: 3
+  bonus_defense: 45
+  bonus_hp: 250
 
-RANK4:
-  Splint Armor:
-    bonus_defense: 55
-    bonus_hp: 310
+Chain Mail:
+  rank: 4
+  bonus_defense: 50
+  bonus_hp: 280
 
-  Plate Mail:
-    bonus_defense: 60
-    bonus_hp: 340
+Splint Armor:
+  rank: 4
+  bonus_defense: 55
+  bonus_hp: 310
+
+Plate Mail:
+  rank: 4
+  bonus_defense: 60
+  bonus_hp: 340
