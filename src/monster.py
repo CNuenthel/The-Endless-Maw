@@ -9,7 +9,7 @@ import item
 
 class Monster:
     def __init__(self, name: str, url: str, sp_atk: str, max_hp: int, atk: int, defense: int, inish: int,
-                 crit_chance: int, crit_multi: float, itm: str, xp: int):
+                 crit_chance: int, crit_multi: float, itm: str, xp: int, gold: int):
         self.name = name
         self.url = url
         self.sp_atk = sp_atk
@@ -21,6 +21,7 @@ class Monster:
         self.crit_multi = crit_multi
         self.item = itm
         self.xp = xp
+        self.gold = gold
 
     def roll_initiative(self):
         return random.randint(self.initiative // 2, self.initiative)
@@ -34,7 +35,7 @@ class Monster:
 
         return {"crit": False, "dmg": damage}
 
-    def apply_damage(self, damage: int) -> dict:
+    def take_damage(self, damage: int) -> dict:
         net_damage = max(damage - self.defense, 0)
         self.current_hp = max(self.current_hp - net_damage, 0)
 
@@ -75,6 +76,7 @@ class MonsterBuilder:
         self.mon_inish = monster_configs.get("Monster_Initiative", {})
         self.mon_crit = monster_configs.get("Monster_Crit", {})
         self.mon_crit_multi = monster_configs.get("Monster_Crit_Multiplier", {})
+        self.mon_gold = monster_configs.get("Monster_Gold", {})
 
     def _load_monster_profiles(self):
         """
@@ -99,6 +101,7 @@ class MonsterBuilder:
         crit_multi = self.mon_crit_multi.get(f"RANK{rank}_CRIT_MULTI", 0)
         item_drop = self.mon_drop_chance.get(f"RANK{rank}_DROP_CHANCE", 0)
         max_xp = self.mon_xp.get(f"RANK{rank}_XP", 0)
+        max_gold = self.mon_gold.get(f"RANK{rank}_GOLD", 0)
 
         return Monster(
             name=selected_monster,
@@ -111,5 +114,6 @@ class MonsterBuilder:
             crit_chance=crit_chance,
             crit_multi=crit_multi,
             itm=self.item_generator.random_item(1, item_drop),
-            xp=random.randint(max_xp - max_xp // 3, max_xp)
+            xp=random.randint(max_xp - max_xp // 3, max_xp),
+            gold=random.randint(max_gold//2, max_gold)
         )

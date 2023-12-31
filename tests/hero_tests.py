@@ -39,7 +39,7 @@ class HeroTest(unittest.TestCase):
 
         expected_hero_hp = hero_max_hp + hero_max_def - 15
 
-        self.hero.apply_damage(15)
+        self.hero.take_damage(15)
         self.assertEqual(self.hero.current_hp, expected_hero_hp, "Damage was not correctly applied to hero HP")
 
     def test_equip_armor(self):
@@ -92,4 +92,3 @@ class HeroTest(unittest.TestCase):
                          "Remove weapon failed to remove the expected bonus def from hero")
         self.assertEqual(self.hero.weapon, None, "Remove weapon failed to remove weapon from hero weapon attribute")
 
-        

@@ -1,4 +1,7 @@
+# Package imports
 import unittest
+
+# Local imports
 from src.monster import MonsterBuilder
 from src.hero import Hero
 from src.battle import Battle

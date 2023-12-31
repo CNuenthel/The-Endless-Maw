@@ -1,8 +1,6 @@
 import random
 
 
-# TODO TEST ALL THIS
-
 class Battle:
     def __init__(self, hero, monster):
         self.first_attacker = None
@@ -45,14 +43,14 @@ class Battle:
     def apply_damage(self):
         if self.first_attacker == "hero":
 
-            mon_result = self.monster.apply_damage(self.hero_damage)
+            mon_result = self.monster.take_damage(self.hero_damage)
             self.monster_flags["dmg_mitigated"] = mon_result["dmg_mitigated"]
 
             if mon_result["current_hp"] == 0:
                 self.victory()
                 return
 
-            hero_result = self.hero.apply_damage(self.monster_damage)
+            hero_result = self.hero.take_damage(self.monster_damage)
             self.hero_flags["dmg_mitigated"] = hero_result["dmg_mitigated"]
 
             if hero_result["current_hp"] == 0:
@@ -60,14 +58,14 @@ class Battle:
                 return  # Hero is dead
 
         else:
-            hero_result = self.hero.apply_damage(self.monster_damage)
+            hero_result = self.hero.take_damage(self.monster_damage)
             self.hero_flags["dmg_mitigated"] = hero_result["dmg_mitigated"]
 
             if hero_result["current_hp"] == 0:
                 self.defeat()
                 return
 
-            mon_result = self.monster.apply_damage(self.hero_damage)
+            mon_result = self.monster.take_damage(self.hero_damage)
             self.monster_flags["dmg_mitigated"] = mon_result["dmg_mitigated"]
 
             if mon_result["current_hp"] == 0:

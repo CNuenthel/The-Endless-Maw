@@ -70,7 +70,7 @@ class Hero:
 
         return {"crit": False, "dmg": damage}
 
-    def apply_damage(self, damage: int) -> dict:
+    def take_damage(self, damage: int) -> dict:
         total_defense = self.defense + self.bonus_def
         net_damage = max(damage - total_defense, 0)
         self.current_hp = max(self.current_hp - net_damage, 0)
