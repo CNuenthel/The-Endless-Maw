@@ -1,0 +1,21 @@
+Shard_Drop_Chance: 25
+
+Rank1_Pool: 20
+Rank2_Pool: 20
+Rank3_Pool: 20
+Rank4_Pool: 15
+Rank5_Pool: 15
+Rank6_Pool: 10
+Rank7_Pool: 10
+Rank8_Pool: 6
+Rank9_Pool: 3
+
+Rank1_Spawn_Chance: 0.8
+Rank2_Spawn_Chance: 0.7
+Rank3_Spawn_Chance: 0.6
+Rank4_Spawn_Chance: 0.5
+Rank5_Spawn_Chance: 0.4
+Rank6_Spawn_Chance: 0.3
+Rank7_Spawn_Chance: 0.2
+Rank8_Spawn_Chance: 0.1
+Rank9_Spawn_Chance: 0.08

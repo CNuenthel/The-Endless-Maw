@@ -23,6 +23,9 @@ class Monster:
         self.xp = xp
         self.gold = gold
 
+    def __repr__(self):
+        return self.name
+
     def roll_initiative(self):
         return random.randint(self.initiative // 2, self.initiative)
 
