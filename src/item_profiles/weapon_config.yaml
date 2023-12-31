@@ -1,38 +1,35 @@
-RANK1:
-  Club:
-    max_bonus_atk: 15
-    min_bonus_atk: 2
-    bonus_def: 5
+Club:
+  rank: 1
+  bonus_atk: 15
+  bonus_def: 5
 
-  Handaxe:
-    max_bonus_atk: 22
-    min_bonus_atk: 6
-    bonus_def: 2
+Handaxe:
+  rank: 1
+  bonus_atk: 22
+  bonus_def: 2
 
-  Spear:
-    max_bonus_atk: 18
-    min_bonus_atk: 10
-    bonus_def: 6
+Spear:
+  rank: 1
+  bonus_atk: 18
+  bonus_def: 6
 
-RANK2:
-  Rapier:
-    max_bonus_atk: 30
-    min_bonus_atk: 8
-    bonus_def: 7
+Rapier:
+  rank: 2
+  bonus_atk: 30
+  bonus_def: 7
 
-  Longsword:
-    max_bonus_atk: 28
-    min_bonus_atk: 20
-    bonus_def: 7
+Longsword:
+  rank: 2
+  bonus_atk: 28
+  bonus_def: 7
 
-  Battleaxe:
-    max_bonus_atk: 42
-    min_bonus_atk: 20
-    bonus_def: 10
+Battleaxe:
+  rank: 3
+  bonus_atk: 42
+  bonus_def: 10
 
-RANK3:
-  Greatsword:
-    max_bonus_atk: 50
-    min_bonus_atk: 20
-    bonus_def: 10
+Greatsword:
+  rank: 3
+  bonus_atk: 50
+  bonus_def: 10
 

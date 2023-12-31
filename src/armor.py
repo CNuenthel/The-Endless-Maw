@@ -1,10 +1,13 @@
+# Package imports
 import yaml
 import random
+import uuid
 
 
 class Armor:
     def __init__(self, name: str, rank: int, bonus_defense: int, bonus_hp: int):
         self.name = name
+        self.unique_id = None
         self.rank = rank
         self.bonus_defense = bonus_defense
         self.bonus_hp = bonus_hp
@@ -35,14 +38,11 @@ class ArmorGenerator:
                 self.armors[rank] = []
             self.armors[rank].append(armor)
 
-    def random_armor(self, rank: int) -> Armor:
+    def random_armor(self, rank: int) -> Armor | None:
         if rank in self.armors:
-            return random.choice(self.armors[rank])
-        else:
-            return None
-
-
-# class Legendary:
-#     def __init__(self):
-#         self.legends = ["Rod Of Lordly Might", "Natures Mantle", "Vestige Blade", "Chidori",
-#                         "Yamatos Training Katana", "Forbidden Fruit"]
+            armor = random.choice(self.armors[rank])
+            armor.bonus_defense = random.randint(armor.bonus_defense // 2, armor.bonus_defense)
+            armor.bonus_hp = random.randint(armor.bonus_hp // 2, armor.bonus_hp)
+            armor.unique_id = str(uuid.uuid4())
+            return armor
+        return None

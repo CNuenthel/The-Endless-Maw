@@ -60,6 +60,9 @@ class MonsterBuilder:
         self._load_monster_profiles()
 
     def _load_monster_configurations(self):
+        """
+        Loads monster configurations from yaml file.
+        """
         print("Loading monster configurations...")
         with open("monster_profiles/monster_config.yaml", "r") as f:
             monster_configs = yaml.safe_load(f)
@@ -74,15 +77,16 @@ class MonsterBuilder:
         self.mon_crit_multi = monster_configs.get("Monster_Crit_Multiplier", {})
 
     def _load_monster_profiles(self):
+        """
+        Loads monster data from rank json files. If additional ranks are added
+        the range will need to be altered to accommodate loading that profile
+        """
         print("Loading monster profiles...")
         for i in range(1, 11):
             with open(f"monster_profiles/rank{i}.json", "r") as f:
                 self.monster_ranks[i] = json.load(f)
 
     def generate_monster(self, rank: int) -> Monster:
-        if rank < 1 or rank > 10:
-            raise ValueError("Monster rank must be between 1 and 10")
-
         rank_data = self.monster_ranks[rank]
         selected_monster = random.choice(list(rank_data.keys()))
         mon_data = rank_data[selected_monster]
